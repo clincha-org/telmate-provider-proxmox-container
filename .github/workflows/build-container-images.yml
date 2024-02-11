@@ -18,9 +18,7 @@ jobs:
 
       - name: Get tags
         run: |
-          git fetch
-          tags=$(git describe --tags --all)
-          echo "$tags"
+          echo "Hello World"
 #  build:
 #    strategy:
 #      matrix:
