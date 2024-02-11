@@ -16,8 +16,7 @@ jobs:
 
       - name: Get tags
         run: |
-          git describe --tags --all > tags.txt
-          cat tags.txt
+          git describe --tags --all
 #  build:
 #    strategy:
 #      matrix:
