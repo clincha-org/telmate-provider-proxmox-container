@@ -15,7 +15,9 @@ jobs:
           repository: Telmate/terraform-provider-proxmox
 
       - name: Get tags
-        run: git tag
+        run: |
+          git tag > tags.txt
+          cat tags.txt
 #  build:
 #    strategy:
 #      matrix:
