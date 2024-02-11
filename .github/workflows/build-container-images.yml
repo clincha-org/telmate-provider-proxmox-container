@@ -16,7 +16,8 @@ jobs:
 
       - name: Get tags
         run: |
-          git describe --tags --all
+          tags=$(git describe --tags --all)
+          echo "$tags"
 #  build:
 #    strategy:
 #      matrix:
