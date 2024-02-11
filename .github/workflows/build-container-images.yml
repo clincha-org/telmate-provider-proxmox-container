@@ -16,6 +16,7 @@ jobs:
 
       - name: Get tags
         run: |
+          git status
           tags=$(git describe --tags --all)
           echo "$tags"
 #  build:
