@@ -9,16 +9,11 @@ jobs:
   get_tags:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4.1.1
-        with:
-          repository: Telmate/terraform-provider-proxmox
-          fetch-tags: true
-          fetch-depth: 0
-
       - name: Get tags
         run: |
-          echo "Hello World"
+          git clone https://github.com/Telmate/terraform-provider-proxmox.git
+          cd terraform-provider-proxmox
+          git tags
 #  build:
 #    strategy:
 #      matrix:
