@@ -16,6 +16,7 @@ jobs:
 
       - name: Get tags
         run: |
+          ls -la
           git tag -l > tags.txt
           cat tags.txt
 #  build:
