@@ -18,7 +18,7 @@ jobs:
 
       - name: Get tags
         run: |
-          git fetch --prune --unshallow
+          git fetch
           tags=$(git describe --tags --all)
           echo "$tags"
 #  build:
