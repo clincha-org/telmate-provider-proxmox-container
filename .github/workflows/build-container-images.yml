@@ -13,7 +13,7 @@ jobs:
         run: |
           git clone https://github.com/Telmate/terraform-provider-proxmox.git
           cd terraform-provider-proxmox
-          git tags
+          git tag
 #  build:
 #    strategy:
 #      matrix:
