@@ -28,7 +28,7 @@ jobs:
         run: |
           tags=$(git tag)
           echo "$tags"
-          echo $(jq -Rcn '{"tags": [inputs]}' tags.txt) >> $GITHUB_OUTPUT
+          echo $(jq -Rcn '{"tags": [inputs]}' "$tags") >> $GITHUB_OUTPUT
   build:
     needs:
       - tags
