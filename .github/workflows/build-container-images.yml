@@ -10,11 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get tags
+        id: get_tags
         run: |
           git clone https://github.com/Telmate/terraform-provider-proxmox.git
           cd terraform-provider-proxmox
-          git tag > tags.txt
-          cat tags.txt
+          git tag >> $GITHUB_OUTPUT
+
+      - name: Print tags
+        run: |
+          echo ${{ steps.get_tags.outputs.* }}
 #  build:
 #    strategy:
 #      matrix:
