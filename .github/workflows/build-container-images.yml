@@ -50,10 +50,17 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           registry: docker.io
 
+      - name: Checkout terraform-proxmox-provider
+        uses: actions/checkout@v4.1.1
+        with:
+          repository: "Telmate/terraform-provider-proxmox"
+          path: "terraform-provider-proxmox"
+          ref: ${{ matrix.tags }}
+
       - name: build and push
         run: |
-          podman build -t \
-          "docker.io/clincha/terraform-provider-proxmox:$tag" \
+          podman build -t "docker.io/clincha/terraform-provider-proxmox:$tag" \
           --build-arg VERSION="$tag" \
-          --file ../containers/terraform-provider-proxmox.Dockerfile \
-          --no-cache
+          --file containers/terraform-provider-proxmox.Dockerfile \
+          --no-cache \
+          ./terraform-provider-proxmox
