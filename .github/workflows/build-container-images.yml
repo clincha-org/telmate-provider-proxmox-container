@@ -59,8 +59,8 @@ jobs:
 
       - name: build and push
         run: |
-          podman build -t "docker.io/clincha/terraform-provider-proxmox:$tag" \
-          --build-arg VERSION="$tag" \
+          podman build -t "docker.io/clincha/terraform-provider-proxmox:${{ matrix.tags }}" \
+          --build-arg VERSION=${{ matrix.tags }} \
           --file containers/terraform-provider-proxmox.Dockerfile \
           --no-cache \
           ./terraform-provider-proxmox
