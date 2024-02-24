@@ -26,9 +26,8 @@ jobs:
       - name: Assign tags to matrix variable
         id: assign-tags
         run: |
-          tags=$(git tag)
-          echo "$tags"
-          echo $(jq -Rcn '{"tags": [inputs]}' "$tags") >> $GITHUB_OUTPUT
+          git tag > tags.txt
+          echo $(jq -Rcn '{"tags": [inputs]}' tags.txt) >> $GITHUB_OUTPUT
   build:
     needs:
       - tags
