@@ -14,11 +14,11 @@ jobs:
         run: |
           git clone https://github.com/Telmate/terraform-provider-proxmox.git
           cd terraform-provider-proxmox
-          echo "tags=$(git tag)" >> $GITHUB_OUTPUT
+          git tag > tags.txt
 
       - name: Print tags
         run: |
-          echo ${{ steps.get_tags.outputs.* }}
+          cat tags.txt
 #  build:
 #    strategy:
 #      matrix:
