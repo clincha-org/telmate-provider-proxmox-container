@@ -28,14 +28,19 @@ for tag in "${tags[@]}"; do
       --no-cache \
       . &&
     podman push "docker.io/clincha/terraform-provider-proxmox-azrm:$tag"
+    echo "Successfully built container for version $tag" >> build.log
   } || { # catch
     echo "================================ ERROR: Failed to build container for version $tag ================================"
-    exit 1
+    echo "Failed to build container for version $tag" >> build.log
   }
   # Delete the images so that we don't run out of storage space on the build agent
   podman rmi "docker.io/clincha/terraform-provider-proxmox:$tag"
   podman rmi "docker.io/clincha/terraform-provider-proxmox-azrm:$tag"
 done
+
+echo "================================ Build log ================================"
+cat build.log
+echo "==========================================================================="
 
 cd .. || exit
 rm -rf terraform-provider-proxmox

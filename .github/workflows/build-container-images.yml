@@ -6,11 +6,43 @@ on:
 #    tags:
 #      - 'v*'
 jobs:
+  tags:
+    runs-on: ubuntu-latest
+    outputs:
+      tags: ${{ steps.assign-tags.outputs.tags }}
+    steps:
+      - name: Checkout terraform-proxmox-provider
+        uses: actions/checkout@v4.1.1
+        with:
+          repository: "Telmate/terraform-provider-proxmox"
+          fetch-tags: true
+          fetch-depth: 0
+
+      - name: Install jq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
+      - name: Assign tags to matrix variable
+        id: assign-tags
+        run: |
+          tags=$(git tag)
+          echo "$tags"
+          echo $(jq -Rcn '{"tags": [inputs]}' tags.txt) >> $GITHUB_OUTPUT
   build:
+    needs:
+      - tags
+    strategy:
+      matrix: ${{ fromJson(needs.tags.outputs.tags) }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
+
+      - name: Install podman
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y podman
 
       - name: Log in to Docker Hub
         uses: redhat-actions/podman-login@v1.6
@@ -20,4 +52,9 @@ jobs:
           registry: docker.io
 
       - name: build and push
-        run: ./build_all_versions.sh
+        run: |
+          podman build -t \
+          "docker.io/clincha/terraform-provider-proxmox:$tag" \
+          --build-arg VERSION="$tag" \
+          --file ../containers/terraform-provider-proxmox.Dockerfile \
+          --no-cache
