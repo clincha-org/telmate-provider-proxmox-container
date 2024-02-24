@@ -27,7 +27,7 @@ jobs:
         id: assign-tags
         run: |
           git tag > tags.txt
-          echo $(jq -Rcn '{"tags": [inputs]}' tags.txt) >> $GITHUB_OUTPUT
+          echo "tags=$(jq -Rcn '{"tags": [inputs]}' tags.txt)" >> $GITHUB_OUTPUT
   build:
     needs:
       - tags
