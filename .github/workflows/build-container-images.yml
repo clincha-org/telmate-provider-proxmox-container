@@ -14,7 +14,7 @@ jobs:
         run: |
           git clone https://github.com/Telmate/terraform-provider-proxmox.git
           cd terraform-provider-proxmox
-          git tag >> $GITHUB_OUTPUT
+          echo "tags=$(git tag)" >> $GITHUB_OUTPUT
 
       - name: Print tags
         run: |
