@@ -33,6 +33,7 @@ jobs:
       - tags
     strategy:
       matrix: ${{ fromJson(needs.tags.outputs.tags) }}
+      fail-fast: false
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
